@@ -1,4 +1,6 @@
-﻿using MentoringProgramApplication.DataLayer;
+﻿using AutorizationService.Abstract;
+using AutorizationService.Managers;
+using MentoringProgramApplication.DataLayer;
 using MentoringProgramApplication.DataLayer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -37,6 +39,8 @@ namespace MentoringApplication
             services.AddIdentity<User, Role>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddTransient<IAutorizationManager, AutorizationManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
