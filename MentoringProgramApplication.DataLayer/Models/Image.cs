@@ -17,10 +17,10 @@ namespace MentoringProgramApplication.DataLayer.Models
         [Required]
         public DateTime Date { get; set; }
 
-        [ForeignKey("UserProfile")]
-        public string UserProfileId { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
 
-        public virtual UserProfile UserProfile { get; set; }
+        public virtual User User { get; set; }
 
     }
 }

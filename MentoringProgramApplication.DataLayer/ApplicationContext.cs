@@ -8,7 +8,7 @@ namespace MentoringProgramApplication.DataLayer
     {
         public ApplicationContext(DbContextOptions options) : base(options)
         { }
-        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<User> UserProfiles { get; set; }
         public DbSet<MyImage> Images { get; set; }
     }
 }

@@ -20,7 +20,13 @@ namespace AutorizationService.Managers
 
         public async Task RegisterUser(UserModel userModel)
         {
-            var user = new User();
+            var user = new User
+            {
+                UserName = userModel.Email,
+                Email = userModel.Email,
+                PhoneNumber = userModel.Phone
+            };
+
             var result = await userManager.CreateAsync(user, userModel.Password);
             if (result.Succeeded)
             {
