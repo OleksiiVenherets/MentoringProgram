@@ -4,4 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MentoringProgramApplication.DataLayer\MentoringProgramApplication.DataLayer.csproj" />
+  </ItemGroup>
+
 </Project>
