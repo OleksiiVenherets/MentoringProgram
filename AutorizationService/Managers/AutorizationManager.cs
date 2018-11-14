@@ -24,7 +24,11 @@ namespace AutorizationService.Managers
             {
                 UserName = userModel.Email,
                 Email = userModel.Email,
-                PhoneNumber = userModel.Phone
+                PhoneNumber = userModel.Phone,
+                City = userModel.City,
+                Name = userModel.Name,
+                Surname = userModel.Surname
+
             };
 
             var result = await userManager.CreateAsync(user, userModel.Password);
