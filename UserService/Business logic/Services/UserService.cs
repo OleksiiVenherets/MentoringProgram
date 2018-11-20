@@ -1,10 +1,14 @@
 ﻿using MentoringProgramApplication.DataLayer.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using UserService.Abstract;
+using UserService.Models;
 
 namespace UserService.Business_logic.Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private readonly UserManager<User> userManager;
 
@@ -13,19 +17,101 @@ namespace UserService.Business_logic.Services
             this.userManager = userManager;
         }
 
-        public void AddUser()
+        public async Task<IEnumerable<UserModel>> GetUsers()
         {
-            throw new NotImplementedException();
+            var users = await Task.Run(() => this.userManager.Users);
+
+            var usersModel = new List<UserModel>();
+            foreach (var user in users)
+            {
+                usersModel.Add (new UserModel
+                {
+                    Id = user.Id,
+                    Email = user.Email,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    City = user.City,
+                    Phone = user.PhoneNumber,
+                    Password = user.PasswordHash
+                });
+            }
+
+            return usersModel;
         }
 
-        public void EditUser(string id)
+        public async Task<EditUserModel> GetUserById(string id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await this.userManager.FindByIdAsync(id);
+                return new EditUserModel
+                {
+                    Email = user.Email,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    City = user.City,
+                    Phone = user.PhoneNumber,
+                    Id = user.Id
+                };
+            }
+            catch (NullReferenceException e)
+            {
+                throw e;
+            }
+
         }
 
-        public void DeleteUser(string id)
+        public async Task<IdentityResult> AddUser(UserModel userModel)
         {
-            throw new NotImplementedException();
+            var user = new User
+            {
+                UserName = userModel.Email,
+                Email = userModel.Email,
+                PhoneNumber = userModel.Phone,
+                City = userModel.City,
+                Name = userModel.Name,
+                Surname = userModel.Surname
+
+            };
+
+            var result = await userManager.CreateAsync(user, userModel.Password);
+            
+            return result;
+        }
+
+        public async Task<IdentityResult> EditUser(EditUserModel model)
+        {
+            var user = await this.userManager.FindByIdAsync(model.Id);
+
+            try
+            {
+                user.Email = model.Email;
+                user.UserName = model.Email;
+                user.Name = model.Name;
+                user.Surname = model.Surname;
+                user.City = model.City;
+                user.PhoneNumber = model.Phone;
+
+                return await this.userManager.UpdateAsync(user);
+            }
+            catch (NullReferenceException e)
+            {
+                throw e;
+            }
+
+        }
+
+        public async Task DeleteUser(string id)
+        {
+            User user = await this.userManager.FindByIdAsync(id);
+            try
+            {
+                IdentityResult result = await this.userManager.DeleteAsync(user);
+            }
+            catch (NullReferenceException e)
+            {
+                throw e;
+            }
         }
     }
 }

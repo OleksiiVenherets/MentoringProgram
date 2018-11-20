@@ -18,7 +18,7 @@ namespace AutorizationService.Managers
             this.signInManager = signInManager;
         }
 
-        public async Task RegisterUser(UserModel userModel)
+        public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
             var user = new User
             {
@@ -36,19 +36,13 @@ namespace AutorizationService.Managers
             {
                 await signInManager.SignInAsync(user, false);
             }
-            else
-            {
-                throw new ArgumentException();
-            }
+
+            return result;
         }
 
-        public async Task LogIn(LoginModel loginModel)
+        public async Task<SignInResult> LogIn(LoginModel loginModel)
         {
-            var result = await signInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, loginModel.RememberMe, false);
-            if (!result.Succeeded)
-            {
-                throw new ArgumentException();
-            }
+            return await signInManager.PasswordSignInAsync(loginModel.Email, loginModel.Password, loginModel.RememberMe, false);          
         }
 
         public async Task LogOff()

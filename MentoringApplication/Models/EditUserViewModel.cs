@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MentoringApplication.Models
 {
-    public class UserViewModel
+    public class EditUserViewModel
     {
         public string Id { get; set; }
 
