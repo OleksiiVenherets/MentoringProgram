@@ -36,9 +36,9 @@ namespace MentoringApplication
 
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ApplicationContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddTransient<IAutorizationManager, AutorizationManager>();
         }
