@@ -11,7 +11,7 @@ namespace MentoringApplication.Controllers
 {
     public class UsersController : Controller
     {
-        public readonly IUserService userService;
+        private readonly IUserService userService;
 
         public UsersController(IUserService userService)
         {

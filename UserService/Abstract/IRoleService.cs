@@ -1,17 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using UserService.Models;
 
 namespace UserService.Abstract
 {
     public interface IRoleService
     {
-        void CreateRole(string name);
+        IEnumerable<string> GetAllRoles();
 
-        void DeleteRole(string id);
+        Task<ChangeRolesModel> GetAllRolesForUser(string userId);
 
-        void EditRole(string userId);
+        Task<IdentityResult> CreateRole(string name);
 
-        void EditRole(string userId, List<string> roles);
+        Task<IdentityResult> DeleteRole(string id);
+
+        Task EditRole(string userId, List<string> roles);
     }
 }
