@@ -16,5 +16,7 @@ namespace UserService.Abstract
         Task<IdentityResult> EditUser(EditUserModel model);
 
         Task DeleteUser(string id);
+
+        bool IsInRole(string id);
     }
 }

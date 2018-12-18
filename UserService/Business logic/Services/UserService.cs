@@ -113,5 +113,18 @@ namespace UserService.Business_logic.Services
                 throw e;
             }
         }
+
+        public bool IsInRole(string id)
+        {
+            var user = this.userManager.FindByNameAsync(id).Result;
+            var existingRole = this.userManager.GetRolesAsync(user).Result;
+
+            if (existingRole.Contains("admin"))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
