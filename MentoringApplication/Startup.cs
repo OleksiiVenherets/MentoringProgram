@@ -5,11 +5,12 @@ using MentoringProgramApplication.DataLayer.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using UserService.Abstract;
+using UserService.Business_logic.Services;
 
 namespace MentoringApplication
 {
@@ -41,6 +42,8 @@ namespace MentoringApplication
                 .AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddTransient<IAutorizationManager, AutorizationManager>();
+            services.AddTransient<IUserService, UserService.Business_logic.Services.UserService>();
+            services.AddTransient<IRoleService, RoleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

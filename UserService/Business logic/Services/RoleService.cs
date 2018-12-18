@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using MentoringProgramApplication.DataLayer.Models;
 using Microsoft.AspNetCore.Identity;
+using UserService.Abstract;
 
 namespace UserService.Business_logic.Services
 {
-    public class RoleService
+    public class RoleService : IRoleService
     {
         private readonly RoleManager<Role> roleManager;
         private readonly UserManager<User> userManager;
